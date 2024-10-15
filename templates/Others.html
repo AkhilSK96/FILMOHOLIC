@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Trailers</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            color: #333;
+        }
+        header {
+            color: black;
+            text-align: left;
+            box-shadow: auto rgba(0, 0, 0, 0.3);
+            margin-left: 30px;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .item {
+            background: #fff;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            width: calc(33.33% - 40px); /* Three containers in a row */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }
+        .item img {
+            max-width: 150px; /* Reduced image size */
+            border-radius: 10px;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+        }
+        .item img:hover {
+            transform: scale(1.05);
+        }
+        .item h2 {
+            margin: 0 0 10px;
+            font-size: 18px; /* Slightly smaller font */
+            color: #222;
+        }
+        .item p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .item a {
+            color: #ff5722;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .item a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .item {
+                width: calc(50% - 40px); /* Two containers in a row for medium screens */
+            }
+        }
+        @media (max-width: 480px) {
+            .item {
+                width: calc(100% - 40px); /* One container per row for small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>#Trailers</h1>
+    </header>
+
+    <div class="container">
+        {% for item in others %}
+            <div class="item">
+                <img src="{{ item.m_image.url }}" alt="{{ item.m_name }}">
+                <div>
+                    <h2><a href="{{ item.t_link }}" target="_blank">{{ item.m_name }}</a></h2>
+                    <p><strong>Cast:</strong> {{ item.m_cast }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p style="width: 100%; text-align: center;">No items found.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

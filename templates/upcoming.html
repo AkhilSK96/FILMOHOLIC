@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css' %}">
+    <style>
+        body {
+            background-image: url("{% static 'discov.png' %}");
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+        .search-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .search-container input {
+            padding: 5px;
+            font-size: 14px;
+        }
+        .search-container button {
+            padding: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .home-button {
+            position: absolute;
+            top: 5px;
+            right:10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 10px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+        .carousel {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .carousel .movie-tile {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: whitesmoke;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .carousel img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        .movie-info {
+            max-width: 600px;
+        }
+        .movie-title {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #69443c;
+        }
+        .movie-description {
+            margin-top: 5px;
+            color: black;
+        }
+        h1 {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-style: inherit;
+            color: #69443c;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search for movies...">
+        <button onclick="filterMovies()">Search</button>
+    </div>
+    <a href="/" class="home-button">Home</a>
+    <h1 style="text-align: center;">D I S C O V E R</h1>
+    <div class="carousel">
+        {% for movie in movies %}
+        <div class="movie-tile">
+            <img src="{{ movie.image.url }}" alt="{{ movie.name }}">
+            <div class="movie-info">
+                <div class="movie-title"><h2>{{ movie.name }}</h2></div>
+                <div class="movie-director"><b>Director:</b> {{ movie.movie_director }}</div>
+                <div class="movie-rating"><b>IMDB rating:</b> {{ movie.imdb_rating }}</div>
+                <div class="movie-genre"><b>Genre:</b> {{ movie.movie_genre }}</div>
+                <div class="movie-language"><b>Language:</b> {{ movie.movie_language }}</div>
+                <div class="movie-cast"><b>Cast:</b> {{ movie.movie_cast }}</div>
+                <div class="movie-description"><b>About:</b> {{ movie.description }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/slick.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.carousel').slick({
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: true,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+
+        function filterMovies() {
+            var input, filter, carousel, tiles, title, i, txtValue;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase();
+            carousel = document.getElementsByClassName('carousel')[0];
+            tiles = carousel.getElementsByClassName('movie-tile');
+
+            for (i = 0; i < tiles.length; i++) {
+                title = tiles[i].getElementsByClassName('movie-title')[0];
+                if (title) {
+                    txtValue = title.textContent || title.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tiles[i].style.display = "";
+                    } else {
+                        tiles[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+</head>
+<body>
+    <h1>Upload Movie Data</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Movie Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+        
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required><br><br>
+        
+        <label for="release_date">Release Date:</label>
+        <input type="date" id="release_date" name="release_date" required><br><br>
+        
+        <label for="imdb_rating">IMDB Rating:</label>
+        <input type="text" id="imdb_rating" name="imdb_rating" required><br><br>
+        
+        <label for="movie_director">Director:</label>
+        <input type="text" id="movie_director" name="movie_director" required><br><br>
+        
+        <label for="movie_cast">Cast:</label>
+        <input type="text" id="movie_cast" name="movie_cast" required><br><br>
+        
+        <label for="movie_language">Language:</label>
+        <input type="text" id="movie_language" name="movie_language" required><br><br>
+        
+        <label for="movie_genre">Genre:</label>
+        <input type="text" id="movie_genre" name="movie_genre" required><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

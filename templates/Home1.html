@@ -1,0 +1,287 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FILMOHOLIC</title>
+    <style>
+        body {
+            background-image: url("{% static 'Home.png' %}");
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #fff;
+        }
+        header {
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: right;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+            position: relative;
+        }
+        nav ul li a {
+            font-family: fantasy;
+            color: whitesmoke;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            color: yellow; 
+            text-decoration: none; 
+        }
+        .genre-dropdown {
+            background-color: black;
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .genre-dropdown a {
+            padding: 12px 16px;
+            display: block;
+            color: white;
+            text-decoration: none;
+            text-align: left;
+        }
+        .genre-dropdown a:hover {
+            background-color: black;
+            color: yellow; 
+            text-decoration: none; 
+        }
+        .nav-genres:hover .genre-dropdown {
+            display: block;
+        }
+        main {
+            padding: 20px;
+            padding-top: 150px;
+            position: relative;
+        }
+        .movie {
+            text-align: center;
+            color: white;
+        }
+        .movie img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-family: "Zain", sans-serif;
+            color: white;
+            text-align: left;
+            margin-left: 30px;
+        }
+        h3 a {
+            font-family: "Zain", sans-serif;
+            color: whitesmoke;
+            text-decoration: none; 
+        }
+        h3 a:hover {
+            color: yellow; 
+            text-decoration: none; 
+        }
+        p {
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            color: whitesmoke;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            color: darkslategrey;
+        }
+        footer p {
+            color: white;
+        }
+        .carousel-inner img {
+            width: 100%;
+            height: auto;
+        }
+        .zain-extralight {
+            font-family: "Zain", sans-serif;
+            font-weight: 200;
+            font-style: normal;
+        }
+        .zain-light {
+            font-family: "Zain", sans-serif;
+            font-weight: 300;
+            font-style: normal;
+        }
+        .zain-regular {
+            font-family: "Zain", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .zain-bold {
+            font-family: "Zain", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+        }
+        .zain-extrabold {
+            font-family: "Zain", sans-serif;
+            font-weight: 800;
+            font-style: normal;
+        }
+        .zain-black {
+            font-family: "Zain", sans-serif;
+            font-weight: 900;
+            font-style: normal;
+        }
+        .btn-others {
+            position: absolute;
+            bottom: 40px; /* Increase this value to move it further down */
+            right: 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-family: "Zain", sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-block-end: -50px;
+        }
+        .btn-others:hover {
+            background-color: #fff;
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Zain:wght@200;300;400;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="nav-genres">
+                    <a href="#">Genres</a>
+                    <div class="genre-dropdown">
+                        <a href="{% url 'movies_by_genre' %}?genre=comedy">Comedy</a>
+                        <a href="{% url 'movies_by_genre' %}?genre=feel_good">Feel Good</a>
+                        <a href="{% url 'movies_by_genre' %}?genre=action">Action</a>
+                        <a href="{% url 'movies_by_genre' %}?genre=thriller">Thriller</a>
+                        <a href="{% url 'movies_by_genre' %}?genre=romance">Romance</a>
+                    </div>
+                </li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'view_movies' %}">Discover</a></li>
+                <li><a href="{% url 'filmbuzz' %}">Filmbuzz</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>#Trailers</h2>
+        </section>
+        <div id="movieCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Carousel Item 1 -->
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="movie">
+                                <img src="{% static '449473587_1498553487693645_8006973375456918678_n.webp' %}" alt="Nunakkuzhi">
+                                <h3><a href="https://youtu.be/aGx6ghVH-ak?si=FIKaBjQO9wk1XPz">Nunakkuzhi</a></h3>
+                                <p><b>Cast-</b> Basil Joseph, Grace Antony, Manoj K Jayan, Aju Varghese</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="movie">
+                                <img src="{% static '448288311_1197912714533778_8948768624484141542_n.jpg' %}" alt="Kill">
+                                <h3><a href="https://youtu.be/da7lKeeS67c?si=yYaB706s48fvRpiW">Kill</a></h3>
+                                <p><b>Cast-</b> Lakshya, Raghav Juyal, Tanya Maniktala</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="movie">
+                                <img src="{% static '452568265_474333715532970_3223237695666468546_n.jpg' %}" alt="Adios Amigo">
+                                <h3><a href="https://youtu.be/oi-ABOheUpQ?si=nwCYjoKxbOSuKHcf">Adios Amigo</a></h3>
+                                <p><b>Cast-</b> Asif Ali, Suraj Venjaramoodu</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="movie">
+                                <img src="{% static '438060277_18437296630022644_2536694463704791337_n.jpg' %}" alt="Deadpool & Wolverine">
+                                <h3><a href="https://youtu.be/Idh8n5XuYIA?si=suoYGPH6U-PUPm04">Deadpool & Wolverine</a></h3>
+                                <p><b>Cast-</b> Ryan Reynolds, Hugh Jackman</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel Item 2 -->
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="movie">
+                                <img src="{% static '452633095_505843095174868_1725625699379876823_n.webp' %}" alt="Raayan">
+                                <h3><a href="https://youtu.be/qQJJWhh-XRo?si=E4_jdk8kc7hyTNko">Raayan</a></h3>
+                                <p><b>Cast-</b> Dhanush, S.J.Suryah, Sundeep Kishan, Kalidas Jayaram</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="movie">
+                                <img src="{% static '439108904_1592506268193334_286362408551354586_n.webp' %}" alt="Aavesham">
+                                <h3><a href="https://www.youtube.com/watch?v=UKVGTTr1VwA">Aavesham</a></h3>
+                                <p><b>Cast-</b> Fahadh Faasil, Hipzster, Sajin Gopu, Mansoor Ali Khan</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="movie">
+                                <img src="{% static '435653216_365982309235521_5782953110119431073_n.jpg' %}" alt="Varshangalk Sesham">
+                                <h3><a href="https://youtu.be/50GJ7D_00NA?si=h0cYYpR4zy1q6yFA">Varshangalk Sesham</a></h3>
+                                <p><b>Cast-</b> Pranav Mohanlal, Dhyan Sreenivasan, Nivin Pauly, Kalyani Priyadarshan</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="movie">
+                                <img src="{% static '426150178_316037818129909_5738154606156324654_n.webp' %}" alt="Paramporul">
+                                <h3><a href="https://youtu.be/sTqE_NN43u0?si=eWavpxXGL-5ocL1p">Premalu</a></h3>
+                                <p><b>Cast-</b> Naslen, Mamitha Baiju</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- More carousel items can be added here following the same structure -->
+            </div>
+            <a class="carousel-control-prev" href="#movieCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#movieCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <a href="{% url 'Others' %}" class="btn-others">Others</a>
+    </main>
+
+    <footer>
+        <p>© 2024 Filmoholic. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
